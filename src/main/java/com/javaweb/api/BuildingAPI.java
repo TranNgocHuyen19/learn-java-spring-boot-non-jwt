@@ -1,30 +1,28 @@
 package com.javaweb.api;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.javaweb.Beans.BuildingDTO;
-
-import customexception.FieldRequiredException;
+import com.javaweb.model.BuildingDTO;
+import com.javaweb.service.BuildingService;
 
 @RestController
 public class BuildingAPI {
-	@PostMapping(value = "/api/building/")
-	public Object getBuilding(@RequestBody BuildingDTO buildingDTO) {
-		// xu li duoi DB xong roi
-		valiDate(buildingDTO);
-		return null;
-	}
-
-	public void valiDate(BuildingDTO buildingDTO) {
-		if (buildingDTO.getName() == null || buildingDTO.getName().equals("")
-				|| buildingDTO.getNumberOfBasement() == null) {
-			throw new FieldRequiredException("Name or number of basement is null");
-		}
+	//Presentation Layer
+	@Autowired //nếu không xài cái này mà khai báo interface nó sẽ không tìm
+				//ra hàm findAll của lớp implement interface
+	private BuildingService buildingService;
+	
+	@GetMapping(value = "/api/building/")
+	public List<BuildingDTO> getBuilding(@RequestParam(name="name")String name ) {
+		List<BuildingDTO> result = buildingService.findAll(name);
+		return result;
 	}
 
 //	@PostMapping(value="/api/building/")
