@@ -9,11 +9,11 @@ public class BuildingEntity {
 	private String ward;
 	private DistrictEntity district;
 	private String structure;
-	private int numberOfBasement;
-	private int floorArea;
+	private Integer numberOfBasement;
+	private Integer floorArea;
 	private String direction;
 	private String level;
-	private int rentPrice;
+	private Integer rentPrice;
 	private String rentPriceDescription;
 	private String serviceFee;
 	private String carFee;
@@ -138,19 +138,19 @@ public class BuildingEntity {
 		this.structure = structure;
 	}
 
-	public int getNumberOfBasement() {
+	public Integer getNumberOfBasement() {
 		return numberOfBasement;
 	}
 
-	public void setNumberOfBasement(int numberOfBasement) {
+	public void setNumberOfBasement(Integer numberOfBasement) {
 		this.numberOfBasement = numberOfBasement;
 	}
 
-	public int getFloorArea() {
+	public Integer getFloorArea() {
 		return floorArea;
 	}
 
-	public void setFloorArea(int floorArea) {
+	public void setFloorArea(Integer floorArea) {
 		this.floorArea = floorArea;
 	}
 
@@ -170,11 +170,11 @@ public class BuildingEntity {
 		this.level = level;
 	}
 
-	public int getRentPrice() {
+	public Integer getRentPrice() {
 		return rentPrice;
 	}
 
-	public void setRentPrice(int rentPrice) {
+	public void setRentPrice(Integer rentPrice) {
 		this.rentPrice = rentPrice;
 	}
 
@@ -345,6 +345,10 @@ public class BuildingEntity {
 	public void setManagerPhoneNumber(String managerPhoneNumber) {
 		this.managerPhoneNumber = managerPhoneNumber;
 	}
+
+	
+
+	
 	
 	
 	
