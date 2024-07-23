@@ -3,17 +3,17 @@ package com.javaweb.repository.entity;
 import java.time.LocalDateTime;
 
 public class BuildingEntity {
-	private int id;
+	private Long id;
 	private String name;
 	private String street;
 	private String ward;
-	private DistrictEntity district;
+	private Long districtId;
 	private String structure;
 	private Integer numberOfBasement;
 	private Integer floorArea;
 	private String direction;
 	private String level;
-	private Integer rentPrice;
+	private Double rentPrice;
 	private String rentPriceDescription;
 	private String serviceFee;
 	private String carFee;
@@ -40,7 +40,7 @@ public class BuildingEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BuildingEntity(String name, String street, String ward, int numberOfBasement) {
+	public BuildingEntity(String name, String street, String ward, Integer numberOfBasement) {
 		super();
 		this.name = name;
 		this.street = street;
@@ -48,8 +48,8 @@ public class BuildingEntity {
 		this.numberOfBasement = numberOfBasement;
 	}
 
-	public BuildingEntity(int id, String name, String street, String ward, DistrictEntity district, String structure,
-			int numberOfBasement, int floorArea, String direction, String level, int rentPrice,
+	public BuildingEntity(Long id, String name, String street, String ward, Long districtId, String structure,
+			Integer numberOfBasement, Integer floorArea, String direction, String level, Double rentPrice,
 			String rentPriceDescription, String serviceFee, String carFee, String motorbikeFee, String overtimeFee,
 			String waterFee, String electricityFee, String deposit, String payment, String rentTime,
 			String decorationTime, String brokerageFee, String linkofbuilding, String map, String image,
@@ -60,7 +60,7 @@ public class BuildingEntity {
 		this.name = name;
 		this.street = street;
 		this.ward = ward;
-		this.district = district;
+		this.districtId = districtId;
 		this.structure = structure;
 		this.numberOfBasement = numberOfBasement;
 		this.floorArea = floorArea;
@@ -90,11 +90,11 @@ public class BuildingEntity {
 		this.managerPhoneNumber = managerPhoneNumber;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -122,12 +122,12 @@ public class BuildingEntity {
 		this.ward = ward;
 	}
 
-	public DistrictEntity getDistrict() {
-		return district;
+	public Long getDistrictId() {
+		return districtId;
 	}
 
-	public void setDistrict(DistrictEntity district) {
-		this.district = district;
+	public void setDistrictId(Long districtId) {
+		this.districtId = districtId;
 	}
 
 	public String getStructure() {
@@ -170,11 +170,11 @@ public class BuildingEntity {
 		this.level = level;
 	}
 
-	public Integer getRentPrice() {
+	public Double getRentPrice() {
 		return rentPrice;
 	}
 
-	public void setRentPrice(Integer rentPrice) {
+	public void setRentPrice(Double rentPrice) {
 		this.rentPrice = rentPrice;
 	}
 
@@ -346,11 +346,6 @@ public class BuildingEntity {
 		this.managerPhoneNumber = managerPhoneNumber;
 	}
 
-	
-
-	
-	
-	
 	
 	
 }
