@@ -1,7 +1,6 @@
 package com.javaweb.repository.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,16 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.entity.BuildingEntity;
+import com.javaweb.ulti.ConnectJDBCUlti;
 import com.javaweb.ulti.NumberUlti;
 import com.javaweb.ulti.StringUlti;
 
 //Data access layer
 @Repository
 public class BuildingRepositoryImpl implements BuildingRepository {
-	static final String DB_URL = "jdbc:mysql://localhost:3306/estatebasic";
-	static final String USER = "root";
-	static final String PASS = "sapassword";
-	
 	public static void joinTable(Map<String, Object> params, List<String> typeCode, StringBuilder join) {
 		String districtId = (String)params.get("districtId");
 		if(StringUlti.checkString(districtId)) {
@@ -110,7 +106,7 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 	
 	@Override
 	public List<BuildingEntity> findAll(Map<String, Object> params, List<String> typeCode) {
-		StringBuilder sql = new StringBuilder("SELECT b.name, b.street, b.ward, b.districtid, "
+		StringBuilder sql = new StringBuilder("SELECT b.id, b.name, b.street, b.ward, b.districtid, "
 				+ "b.numberofbasement, b.floorarea, b.rentprice, b.managername, b.managerphonenumber, "
 				+ "b.servicefee, b.brokeragefee FROM building b");
 		joinTable(params, typeCode, sql);
@@ -120,11 +116,12 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 		where.append(" GROUP BY b.id");
 		sql.append(where);
 		List<BuildingEntity> result = new ArrayList<BuildingEntity>();
-		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		try(Connection conn = ConnectJDBCUlti.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql.toString());
 				ResultSet rs = ps.executeQuery();) {
 			while(rs.next()) {
 				BuildingEntity building = new BuildingEntity();
+				building.setId(rs.getLong("b.id"));
 				building.setName(rs.getString("b.name"));
 				building.setStreet(rs.getString("b.street"));
 				building.setWard(rs.getString("b.ward"));

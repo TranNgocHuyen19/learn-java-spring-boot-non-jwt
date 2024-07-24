@@ -8,6 +8,7 @@ public class BuildingDTO {
 	private String managerPhoneNumber;
 	private Integer floorArea;
 	private Double rentPrice;
+	private String rentArea;//100,200,300
 	private String serviceFee;
 	private String brokerageFee;
 	
@@ -69,6 +70,15 @@ public class BuildingDTO {
 	public void setBrokerageFee(String brokerageFee) {
 		this.brokerageFee = brokerageFee;
 	}
+
+	public String getRentArea() {
+		return rentArea;
+	}
+
+	public void setRentArea(String rentArea) {
+		this.rentArea = rentArea;
+	}
+	
 	
 	
 	
