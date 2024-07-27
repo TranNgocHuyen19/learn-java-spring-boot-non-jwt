@@ -36,6 +36,7 @@ public class BuildingDTOConverter {
 				.collect(Collectors.joining(","));
 		building.setRentArea(areaResult);		
 		return building;
+		
 	}
 	
 }
