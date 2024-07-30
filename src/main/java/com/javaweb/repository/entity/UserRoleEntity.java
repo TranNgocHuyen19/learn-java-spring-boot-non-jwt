@@ -12,15 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "rentarea")
-public class RentAreaEntity {
-	
+@Table(name = "user_role")
+public class UserRoleEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name = "value")
-	private Integer value;
 	
 	@Column(name = "createddate")
 	private LocalDateTime createdDate;
@@ -33,53 +29,72 @@ public class RentAreaEntity {
 	
 	@Column(name = "modifiedby")
 	private String modifiedBy;
-
-	@ManyToOne
-	@JoinColumn(name = "buildingid")
-	private BuildingEntity building;
 	
-	public BuildingEntity getBuilding() {
-		return building;
-	}
-	public void setBuilding(BuildingEntity building) {
-		this.building = building;
-	}
+	@ManyToOne
+	@JoinColumn(name = "userid")
+	private UserEntity user;
+	
+	@ManyToOne
+	@JoinColumn(name = "roleid")
+	private RoleEntity role;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public Integer getValue() {
-		return value;
-	}
-	public void setValue(Integer value) {
-		this.value = value;
 	}
 
 	public LocalDateTime getCreatedDate() {
 		return createdDate;
 	}
+
 	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
 	}
+
 	public LocalDateTime getModifiedDate() {
 		return modifiedDate;
 	}
+
 	public void setModifiedDate(LocalDateTime modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
+
 	public String getCreatedBy() {
 		return createdBy;
 	}
+
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+
 	public String getModifiedBy() {
 		return modifiedBy;
 	}
+
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+
+	public RoleEntity getRole() {
+		return role;
+	}
+
+	public void setRole(RoleEntity role) {
+		this.role = role;
+	}
+
+	
+	
 	
 }

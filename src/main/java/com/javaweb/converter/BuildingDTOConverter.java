@@ -8,29 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.javaweb.model.BuildingDTO;
-import com.javaweb.repository.DistrictRepository;
-import com.javaweb.repository.RentAreaRepository;
 import com.javaweb.repository.entity.BuildingEntity;
-import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.repository.entity.RentAreaEntity;
 
 @Component
-public class BuildingDTOConverter {
-	@Autowired
-	private DistrictRepository districtRepository;
-	
-	@Autowired
-	private RentAreaRepository rentAreaRepository;
-	
+public class BuildingDTOConverter {	
 	@Autowired
 	private ModelMapper modelMapper;
 	
 	public BuildingDTO toBuildingDTO(BuildingEntity buildingEntity) {
 		BuildingDTO building = modelMapper.map(buildingEntity, BuildingDTO.class);
-		
-		DistrictEntity districtEntity = districtRepository.findNameById(buildingEntity.getDistrictId());
-		building.setAddress(buildingEntity.getStreet() + "," + buildingEntity.getWard() + ", " + districtEntity.getName());
-		List<RentAreaEntity> rentAreas = rentAreaRepository.getValueByBuildingId(buildingEntity.getId());
+		building.setAddress(buildingEntity.getStreet() + " ," + buildingEntity.getWard() + ", " + buildingEntity.getDistrict().getName());
+		List<RentAreaEntity> rentAreas = buildingEntity.getRentAreaEntities();
 		String areaResult = rentAreas.stream()
 				.map(it -> it.getValue().toString())
 				.collect(Collectors.joining(","));

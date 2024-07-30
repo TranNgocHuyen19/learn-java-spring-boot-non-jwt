@@ -15,23 +15,5 @@ import com.javaweb.ulti.ConnectJDBCUlti;
 
 @Repository
 public class RentAreaRepositoryImpl implements RentAreaRepository {
-	@Override
-	public List<RentAreaEntity> getValueByBuildingId(Long id) {
-		String sql = "SELECT ra.value FROM rentarea ra WHERE ra.buildingid = " + id + ";";
-		List<RentAreaEntity> rentAreas = new ArrayList<RentAreaEntity>();
-		try (Connection conn = ConnectJDBCUlti.getConnection();
-				PreparedStatement ps = conn.prepareStatement(sql);
-				ResultSet rs = ps.executeQuery();) {
-			while (rs.next()) {
-				RentAreaEntity rentAreaEntity = new RentAreaEntity();
-				rentAreaEntity.setValue(rs.getInt("value"));
-				rentAreas.add(rentAreaEntity);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return rentAreas;
-	}
 
 }
