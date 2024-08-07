@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -51,17 +53,15 @@ public class UserEntity {
 	private String modifiedBy;
 
 	//thủ công
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<UserRoleEntity> userRoleEntities = new ArrayList<UserRoleEntity>();
+//	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//	private List<UserRoleEntity> userRoleEntities = new ArrayList<UserRoleEntity>();
 	
-	public List<UserRoleEntity> getUserRoleEntities() {
-		return userRoleEntities;
-	}
-
-	public void setUserRoleEntities(List<UserRoleEntity> userRoleEntities) {
-		this.userRoleEntities = userRoleEntities;
-	}
-
+	//tự động
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "user_role",
+			joinColumns = @JoinColumn(name = "userid", nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "roleid", nullable = false))
+	private List<RoleEntity> roles = new ArrayList<RoleEntity>();
 	public Long getId() {
 		return id;
 	}

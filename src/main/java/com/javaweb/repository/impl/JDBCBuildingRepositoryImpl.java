@@ -9,9 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
 
 import com.javaweb.builder.BuildingSearchBuilder;
+import com.javaweb.model.BuildingRequestDTO;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.ulti.ConnectJDBCUlti;
@@ -19,6 +24,9 @@ import com.javaweb.ulti.ConnectJDBCUlti;
 //Data access layer
 @Repository
 public class JDBCBuildingRepositoryImpl implements BuildingRepository {
+	@PersistenceContext
+	private EntityManager entityManager;
+	
 	public static void joinTable(BuildingSearchBuilder buildingSearchBuilder, StringBuilder join) {
 		Long districtId = buildingSearchBuilder.getDistrictId();
 		if (districtId != null) {
@@ -35,7 +43,7 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
 //		if(StringUlti.checkString(rentAreaFrom) || StringUlti.checkString(rentAreaTo)) {
 //			join.append(" INNER JOIN rentarea ra ON ra.buildingid = b.id ");
 //		}
-		
+
 		List<String> typeCode = buildingSearchBuilder.getTypeCode();
 
 		if (typeCode != null && typeCode.size() != 0) {
@@ -149,31 +157,25 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
 		where.append(" GROUP BY b.id");
 		sql.append(where);
 		List<BuildingEntity> result = new ArrayList<BuildingEntity>();
-		try (Connection conn = ConnectJDBCUlti.getConnection();
-				PreparedStatement ps = conn.prepareStatement(sql.toString());
-				ResultSet rs = ps.executeQuery();) {
-			while (rs.next()) {
-				BuildingEntity building = new BuildingEntity();
-				building.setId(rs.getLong("b.id"));
-				building.setName(rs.getString("b.name"));
-				building.setStreet(rs.getString("b.street"));
-				building.setWard(rs.getString("b.ward"));
-//				building.setDistrictId(rs.getLong("b.districtid"));
-				
-				building.setNumberOfBasement(rs.getInt("b.numberofbasement"));
-				building.setFloorArea(rs.getInt("b.floorarea"));
-				building.setRentPrice(rs.getDouble("b.rentprice"));
-				building.setManagerName(rs.getString("b.managername"));
-				building.setManagerPhoneNumber(rs.getString("b.managerphonenumber"));
-				building.setServiceFee(rs.getString("b.servicefee"));
-				building.setBrokerageFee(rs.getString("b.brokeragefee"));
-				result.add(building);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Connected database failed...");
-		}
-		return result;
+		Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
+		return query.getResultList();
+	}
+
+	@Override
+	public void insert(BuildingRequestDTO buildingRequestDTO) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void update(BuildingRequestDTO buildingRequestDTO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

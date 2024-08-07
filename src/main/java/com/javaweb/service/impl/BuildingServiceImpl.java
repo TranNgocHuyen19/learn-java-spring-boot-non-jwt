@@ -11,6 +11,7 @@ import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.converter.BuildingDTOConverter;
 import com.javaweb.converter.BuildingSearchBuilderConverter;
 import com.javaweb.model.BuildingDTO;
+import com.javaweb.model.BuildingRequestDTO;
 import com.javaweb.repository.BuildingRepository;
 import com.javaweb.repository.entity.BuildingEntity;
 import com.javaweb.service.BuildingService;
@@ -37,6 +38,21 @@ public class BuildingServiceImpl implements BuildingService {
 			result.add(building);
 		}
 		return result;
+	}
+
+	@Override
+	public void insert(BuildingRequestDTO buildingRequestDTO) {
+		buildingRepository.insert(buildingRequestDTO);
+	}
+
+	@Override
+	public void update(BuildingRequestDTO buildingRequestDTO) {
+		buildingRepository.update(buildingRequestDTO);
+	}
+
+	@Override
+	public void delete(Long id) {
+		buildingRepository.delete(id);
 	}
 
 }

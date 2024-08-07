@@ -12,7 +12,8 @@ import com.javaweb.repository.entity.DistrictEntity;
 import com.javaweb.ulti.ConnectJDBCUlti;
 
 @Repository
-public class DistrictRepositoryImpl implements DistrictRepository {
+public class DistrictRepositoryImpl  {
+
 	
 
 }
