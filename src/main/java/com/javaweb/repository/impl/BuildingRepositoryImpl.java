@@ -23,7 +23,7 @@ import com.javaweb.ulti.ConnectJDBCUlti;
 
 //Data access layer
 @Repository
-public class JDBCBuildingRepositoryImpl implements BuildingRepository {
+public class BuildingRepositoryImpl implements BuildingRepository {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
@@ -38,11 +38,11 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
 			join.append(" INNER JOIN assignmentbuilding ad ON ad.buildingid = b.id ");
 		}
 
-		Long rentAreaFrom = buildingSearchBuilder.getAreaFrom();
-		Long rentAreaTo = buildingSearchBuilder.getAreaTo();
-		if(rentAreaFrom != null || rentAreaTo != null) {
-			join.append(" INNER JOIN rentarea ra ON ra.buildingid = b.id ");
-		}
+//		Long rentAreaFrom = buildingSearchBuilder.getAreaFrom();
+//		Long rentAreaTo = buildingSearchBuilder.getAreaTo();
+//		if(rentAreaFrom != null || rentAreaTo != null) {
+//			join.append(" INNER JOIN rentarea ra ON ra.buildingid = b.id ");
+//		}
 
 		List<String> typeCode = buildingSearchBuilder.getTypeCode();
 
