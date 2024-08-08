@@ -38,11 +38,11 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
 			join.append(" INNER JOIN assignmentbuilding ad ON ad.buildingid = b.id ");
 		}
 
-//		String rentAreaFrom = (String)params.get("areaFrom");
-//		String rentAreaTo = (String)params.get("areaTo");
-//		if(StringUlti.checkString(rentAreaFrom) || StringUlti.checkString(rentAreaTo)) {
-//			join.append(" INNER JOIN rentarea ra ON ra.buildingid = b.id ");
-//		}
+		Long rentAreaFrom = buildingSearchBuilder.getAreaFrom();
+		Long rentAreaTo = buildingSearchBuilder.getAreaTo();
+		if(rentAreaFrom != null || rentAreaTo != null) {
+			join.append(" INNER JOIN rentarea ra ON ra.buildingid = b.id ");
+		}
 
 		List<String> typeCode = buildingSearchBuilder.getTypeCode();
 
@@ -147,9 +147,7 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
  
 	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
-		StringBuilder sql = new StringBuilder("SELECT b.id, b.name, b.street, b.ward, b.districtid, "
-				+ "b.numberofbasement, b.floorarea, b.rentprice, b.managername, b.managerphonenumber, "
-				+ "b.servicefee, b.brokeragefee FROM building b");
+		StringBuilder sql = new StringBuilder("SELECT b.* FROM building b");
 		joinTable(buildingSearchBuilder, sql);
 		StringBuilder where = new StringBuilder(" WHERE 1 = 1 ");
 		queryNormal(buildingSearchBuilder, where);
