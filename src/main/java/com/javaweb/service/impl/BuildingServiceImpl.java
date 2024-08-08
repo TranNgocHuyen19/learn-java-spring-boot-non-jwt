@@ -39,20 +39,4 @@ public class BuildingServiceImpl implements BuildingService {
 		}
 		return result;
 	}
-
-	@Override
-	public void insert(BuildingRequestDTO buildingRequestDTO) {
-		buildingRepository.insert(buildingRequestDTO);
-	}
-
-	@Override
-	public void update(BuildingRequestDTO buildingRequestDTO) {
-		buildingRepository.update(buildingRequestDTO);
-	}
-
-	@Override
-	public void delete(Long id) {
-		buildingRepository.delete(id);
-	}
-
 }

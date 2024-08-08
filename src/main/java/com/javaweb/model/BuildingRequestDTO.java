@@ -3,6 +3,7 @@ package com.javaweb.model;
 import java.time.LocalDateTime;
 
 public class BuildingRequestDTO {
+	private Long id;
 	private String name;
 	private String street;
 	private String ward;
@@ -34,6 +35,13 @@ public class BuildingRequestDTO {
 	private String modifiedby;
 	private String managerName;
 	private String managerPhoneNumber;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

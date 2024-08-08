@@ -1,10 +1,6 @@
-package com.javaweb.repository.impl;
+package com.javaweb.repository.custom.impl;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,17 +9,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.model.BuildingRequestDTO;
 import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.custom.BuildingRepositoryCustom;
 import com.javaweb.repository.entity.BuildingEntity;
-import com.javaweb.ulti.ConnectJDBCUlti;
 
 //Data access layer
 @Repository
-public class JDBCBuildingRepositoryImpl implements BuildingRepository {
+@Primary
+public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
@@ -145,37 +143,16 @@ public class JDBCBuildingRepositoryImpl implements BuildingRepository {
 		}
 	}
  
-	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
-		StringBuilder sql = new StringBuilder("SELECT b.id, b.name, b.street, b.ward, b.districtid, "
-				+ "b.numberofbasement, b.floorarea, b.rentprice, b.managername, b.managerphonenumber, "
-				+ "b.servicefee, b.brokeragefee FROM building b");
+		StringBuilder sql = new StringBuilder("SELECT b.* FROM building b");
 		joinTable(buildingSearchBuilder, sql);
 		StringBuilder where = new StringBuilder(" WHERE 1 = 1 ");
 		queryNormal(buildingSearchBuilder, where);
 		querySpecial(buildingSearchBuilder, where);
 		where.append(" GROUP BY b.id");
 		sql.append(where);
-		List<BuildingEntity> result = new ArrayList<BuildingEntity>();
+//		List<BuildingEntity> result = new ArrayList<BuildingEntity>();
 		Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
 		return query.getResultList();
 	}
-
-	@Override
-	public void insert(BuildingRequestDTO buildingRequestDTO) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void update(BuildingRequestDTO buildingRequestDTO) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
