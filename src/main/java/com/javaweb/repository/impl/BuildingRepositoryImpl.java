@@ -30,11 +30,11 @@ public class BuildingRepositoryImpl implements BuildingRepository {
 			join.append(" INNER JOIN assignmentbuilding ad ON ad.buildingid = b.id ");
 		}
 
-//		String rentAreaFrom = (String)params.get("areaFrom");
-//		String rentAreaTo = (String)params.get("areaTo");
-//		if(StringUlti.checkString(rentAreaFrom) || StringUlti.checkString(rentAreaTo)) {
-//			join.append(" INNER JOIN rentarea ra ON ra.buildingid = b.id ");
-//		}
+		Long rentAreaFrom = buildingSearchBuilder.getAreaFrom();
+		Long rentAreaTo = buildingSearchBuilder.getAreaTo();
+		if(rentAreaFrom != null || rentAreaTo != null) {
+			join.append(" INNER JOIN rentarea ra ON ra.buildingid = b.id ");
+		}
 		
 		List<String> typeCode = buildingSearchBuilder.getTypeCode();
 
